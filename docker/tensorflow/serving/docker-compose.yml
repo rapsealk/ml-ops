@@ -1,0 +1,15 @@
+version: "3.2"
+
+services:
+  tensorflow-serving:
+    image: tensorflow/serving
+    restart: always
+    ports:
+      - "8500:8500" # gRPC
+      - "8501:8501" # REST API
+    environment:
+      MODEL_NAME: model
+      MODEL_BASE_PATH: /models
+    volumes:  # container:local (mount)
+      - "../models/random_model:/models/random_model"
+    container_name: "tensorflow-serving"
